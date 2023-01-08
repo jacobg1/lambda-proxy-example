@@ -8,8 +8,12 @@ functions:
   doc-uploader:
     handler: dist/handler.handle
     events:
-      - httpApi: PUT /file/{proxy+}
-      - httpApi: GET /file/{proxy+}
+      - httpApi:
+          method: ANY
+          path: /file/{proxy+}
+          authorizer: 
+            type: aws_iam
+
     role: DocUploadRole
     environment:
       BUCKET: s3example-${opt:stage, 'dev'}
