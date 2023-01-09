@@ -1,8 +1,8 @@
-export interface GetDocResponse {
+export interface GetObjectUrlResponse {
   getUrl: string;
 }
 
-export interface UploadDocResponse {
+export interface GetUploadUrlResponse {
   putUrl: string;
 }
 
