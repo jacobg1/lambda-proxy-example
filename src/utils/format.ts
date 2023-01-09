@@ -36,13 +36,14 @@ export const handleResponse = (response: Record<string, any>) => {
 };
 
 export const handleError = (e: Error) => {
+  const errorMessage = e.message || "Internal Server Error";
   return {
     statusCode: 500,
     isBase64Encoded: false,
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "application/json",
       "x-amzn-ErrorType": e.name || "Error",
     },
-    body: e.message || "Internal Server Error",
+    body: JSON.stringify({ message: errorMessage }),
   };
 };
