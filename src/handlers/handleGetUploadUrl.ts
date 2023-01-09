@@ -1,10 +1,12 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { s3Client } from "../clients/s3-client";
-import { UploadDocResponse } from "../interface/documents";
+import { GetUploadUrlResponse } from "../interface/documents";
 import type { RouteHandler } from "../interface/httpRoutes";
 
-export const handleUpload: RouteHandler<UploadDocResponse> = async (data) => {
+export const handleGetUploadUrl: RouteHandler<GetUploadUrlResponse> = async (
+  data
+) => {
   if (!data.body?.fileName) {
     throw new Error("Missing fileName");
   }
