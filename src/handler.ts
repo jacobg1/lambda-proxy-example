@@ -3,6 +3,7 @@ import { handleGetUploadUrl } from "./handlers/handleGetUploadUrl";
 import { handleGetObjectUrl } from "./handlers/handleGetObjectUrl";
 import { HttpRoutes } from "./interface/httpRoutes";
 import { extractReqData, handleError, handleResponse } from "./utils/format";
+import { CustomError } from "./utils/customError";
 
 const routeConfig = {
   [HttpRoutes.GET_DOC_BY_NAME]: handleGetObjectUrl,
@@ -10,13 +11,23 @@ const routeConfig = {
 };
 
 const handleEvent = async (event: APIGatewayProxyEventV2) => {
-  const { method, path } = event?.requestContext?.http;
+  const method = event.requestContext?.http?.method;
+  const path = event.requestContext?.http?.path;
+
   if (!method || !path) {
-    throw new Error("Missing http requestContext");
+    throw new CustomError({
+      name: "BadRequestException",
+      message: "Invalid Request",
+      statusCode: 400,
+    });
   }
   const handler = routeConfig[`${method} ${path}` as HttpRoutes];
   if (!handler) {
-    throw new Error("Missing handler");
+    throw new CustomError({
+      name: "NotFoundException",
+      message: "Not Found",
+      statusCode: 404,
+    });
   }
   return handler(extractReqData(event));
 };
