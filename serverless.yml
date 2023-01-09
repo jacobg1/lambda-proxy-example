@@ -17,7 +17,7 @@ functions:
     role: DocUploadRole
     environment:
       BUCKET: s3example-${opt:stage, 'dev'}
-      EXPIRES_IN: 3000 
+      EXPIRES_IN: '3000' 
 
 resources:
   - ${file(resources/s3-bucket.yml)}
