@@ -10,7 +10,7 @@ const routeConfig = {
   [HttpRoutes.UPLOAD_DOC]: handleGetUploadUrl,
 };
 
-const handleEvent = async (event: APIGatewayProxyEventV2) => {
+const handleEvent = (event: APIGatewayProxyEventV2) => {
   const method = event.requestContext?.http?.method;
   const path = event.requestContext?.http?.path;
 
