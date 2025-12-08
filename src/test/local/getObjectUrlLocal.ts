@@ -10,18 +10,15 @@ const mockGetObjectUrlEvent = {
       path: "/file/get",
     },
   },
-  queryStringParameters: { fileName: "test-upload.jpg" },
+  queryStringParameters: { fileName: "test-uploading.jpg" },
 } as unknown as APIGatewayProxyEventV2;
 
 (async () => {
   try {
-    const response = await handle(
-      mockGetObjectUrlEvent,
-      {} as Context,
-      () => null
-    );
+    const response = await handle(mockGetObjectUrlEvent, {} as Context, () => null);
     console.log(response);
-  } catch (e) {
-    throw new Error(e);
+  } catch (e: unknown) {
+    console.error(e);
+    throw e;
   }
 })();

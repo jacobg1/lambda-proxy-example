@@ -10,18 +10,15 @@ const mockDocUploadEvent = {
       path: "/file/put",
     },
   },
-  body: JSON.stringify({ fileName: "test-upload.jpg" }),
+  body: JSON.stringify({ fileName: "test-uploading.jpg" }),
 } as APIGatewayProxyEventV2;
-
+//
 (async () => {
   try {
-    const response = await handle(
-      mockDocUploadEvent,
-      {} as Context,
-      () => null
-    );
+    const response = await handle(mockDocUploadEvent, {} as Context, () => null);
     console.log(response);
-  } catch (e) {
-    throw new Error(e);
+  } catch (e: unknown) {
+    console.error(e);
+    throw e;
   }
 })();

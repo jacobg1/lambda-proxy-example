@@ -19,7 +19,7 @@ const parseReqBody = (body: string): unknown => {
 // TODO: schema or DTO validation
 export const extractReqData = (
   event: APIGatewayProxyEventV2
-): RequestData | Record<string, never> => {
+): RequestData | Record<string, unknown> => {
   const { body, queryStringParameters, pathParameters } = event;
 
   return {

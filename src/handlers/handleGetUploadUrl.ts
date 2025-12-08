@@ -5,9 +5,7 @@ import { GetUploadUrlResponse } from "../interface/documents";
 import type { RouteHandler } from "../interface/httpRoutes";
 import { CustomError } from "../utils/customError";
 
-export const handleGetUploadUrl: RouteHandler<GetUploadUrlResponse> = async (
-  data
-) => {
+export const handleGetUploadUrl: RouteHandler<GetUploadUrlResponse> = async (data) => {
   if (!data.body?.fileName) {
     throw new CustomError({
       name: "BadRequestException",
@@ -20,7 +18,7 @@ export const handleGetUploadUrl: RouteHandler<GetUploadUrlResponse> = async (
     Key: data.body.fileName,
   });
   const putUrl = await getSignedUrl(s3Client, putObjectCommand, {
-    expiresIn: +process.env.EXPIRES_IN,
+    expiresIn: process.env.EXPIRES_IN ? +process.env.EXPIRES_IN : 3000,
   });
   return { putUrl };
 };

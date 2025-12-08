@@ -36,7 +36,7 @@ export const handle: APIGatewayProxyHandlerV2 = async (event) => {
   try {
     const response = await handleEvent(event);
     return handleResponse(response);
-  } catch (e) {
-    return handleError(e);
+  } catch (e: unknown) {
+    return handleError(e as CustomError);
   }
 };
