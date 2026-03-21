@@ -2,7 +2,7 @@ service: s3-example
 
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs20.x
 
 functions:
   doc-uploader:
